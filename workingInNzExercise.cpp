@@ -1,15 +1,23 @@
-// workingInNzExercise.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+
+//int calculateNthNumberInSequence(int previousNum, int currentNum, int nthNumberCtr)
+//{
+//    int total = previousNum + currentNum;
+//    if (nthNumberCtr == 1)
+//        return currentNum;
+//    else
+//        return calculateNthNumberInSequence(currentNum, total, nthNumberCtr - 1);
+//}
 
 int calculateNthNumberInSequence(int previousNum, int currentNum, int nthNumberCtr)
 {
-    int total = previousNum + currentNum;
-    if (nthNumberCtr == 1)
-        return currentNum;
-    else
-        return calculateNthNumberInSequence(currentNum, total, nthNumberCtr - 1);
+    for (; nthNumberCtr > 0; --nthNumberCtr)
+    {
+        int temp = previousNum + currentNum;
+        previousNum = currentNum;
+        currentNum = temp;
+    }
+    return previousNum;
 }
 
 int main(void)
@@ -22,25 +30,26 @@ int main(void)
     int secondNum = 2;
 #endif
 
+    int sumOfPreviousAndCurrentNum = firstNum + secondNum;
     if (nthNumberCtr == 1)
         return firstNum;
     else if (nthNumberCtr == 2)
-        return firstNum + secondNum;
+        return sumOfPreviousAndCurrentNum;
     else
     {
-        int nthNumber = calculateNthNumberInSequence(secondNum, firstNum + secondNum, nthNumberCtr - 2);
-        std::cout << "Nth number is: " << nthNumber << std::endl;
-        return calculateNthNumberInSequence(secondNum, firstNum + secondNum, nthNumberCtr - 2);
+        std::cout << "Nth number is: " << calculateNthNumberInSequence(secondNum, sumOfPreviousAndCurrentNum, nthNumberCtr - 2) << std::endl;
     }
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+/*
+-What is the 15th element of the sequent ?
+    1220
+-What is your solution time and space complexity, regarding for the n(th) element of the sequent ?
+    O(N)
+-What clean code principles you have been used, and why ?
+    Keeping it simple, because answer can be achieved in a simple for loop.
+    Readability, it is better to understand code as it is rather than relying on to some comment blocks.
+    Single Responsibility/Modularity, specify only what a method or function is actually doing.
+-Bonus : can you make your code recursive ? If yes, what would be your timeand space complexity ?
+    Recursive code is commented-out. I believe it is still linear so the complexity is O(N).
+*/
