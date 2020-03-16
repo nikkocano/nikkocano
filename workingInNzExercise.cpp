@@ -1,13 +1,17 @@
 #include <iostream>
 
-//int calculateNthNumberInSequence(int previousNum, int currentNum, int nthNumberCtr)
-//{
-//    int total = previousNum + currentNum;
-//    if (nthNumberCtr == 1)
-//        return currentNum;
-//    else
-//        return calculateNthNumberInSequence(currentNum, total, nthNumberCtr - 1);
-//}
+int calculateNthNumberInSequenceRecur(int nthNumberCtr)
+{
+    if (nthNumberCtr == 1 || nthNumberCtr == 2)
+    {
+        return 2;
+    }
+    else
+    {
+        return calculateNthNumberInSequenceRecur(nthNumberCtr - 2) +
+            calculateNthNumberInSequenceRecur(nthNumberCtr - 1);
+    }
+}
 
 int calculateNthNumberInSequence(int previousNum, int currentNum, int nthNumberCtr)
 {
@@ -38,6 +42,7 @@ int main(void)
     else
     {
         std::cout << "Nth number is: " << calculateNthNumberInSequence(secondNum, sumOfPreviousAndCurrentNum, nthNumberCtr - 2) << std::endl;
+        std::cout << "(Recursive) Nth number is: " << calculateNthNumberInSequenceRecur(nthNumberCtr) << std::endl;
     }
 }
 
@@ -52,4 +57,7 @@ int main(void)
     Single Responsibility/Modularity, specify only what a method or function is actually doing.
 -Bonus : can you make your code recursive ? If yes, what would be your timeand space complexity ?
     Recursive code is commented-out. I believe it is still linear so the complexity is O(N).
+
+    Edit:
+    Since new recursion implementation involves halving the set, time complexity is logarithmic therefore O(2^n).
 */
